@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>game matematika</title>
+</head>
+<body>
+  <script>
+  window.onload = () => {
+  
+  const number1 = document.querySelector('.number1');
+  const number2 = document.querySelector('.number2');
+  
+  function getRandomNumber() {
+    // dapatkan angka acak dari 0 sampai 20
+    return Math.floor(Math.random() * 100);
+  }
+  
+  // dapatkan angka acak
+  number1.textContent = getRandomNumber();
+  number2.textContent = getRandomNumber();
+  
+  // acak angka dari 0 sampai 1 
+  let random = Math.random();
+  
+  const operator = document.querySelector('.operator');
+  
+  // set operator berdasarkan angka acak
+  function setOperator() {
+    if (random <= 0.23) return operator.textContent = '+';
+    if (random >= 0.23 && random <= 0.56) return operator.textContent = '-';
+    if (random >= 0.56 && random <= 0.78) return operator.textContent = '×';
+    return operator.textContent = '÷';
+  }
+  
+  setOperator();
+  
+  // untuk menampung hasil penjumlahan
+  let result;
+  
+  // parsing menjadi integer supaya bisa dijumlahlan
+  const num1 = parseInt(number1.textContent);
+  const num2 = parseInt(number2.textContent);
+  
+  // dapatkan hasil penjumlahan
+  function getResult() {
+    switch (operator.textContent) {
+      case '+' : result = num1 + num2; break;
+      case '-' : result = num1 - num2; break;
+      case '×' : result = num1 * num2; break;
+      case '÷' : result = num1 / num2; break;
+    }
+  }
+  
+  getResult();
+  
+  const input = document.querySelector('.input');
+  const button = document.querySelector('.button');
+  button.addEventListener('click', () => {
+    if (input.value) {
+      // isi input
+      const value = input.value.trim();
+      // penentu hasil akhir
+      const final = (value == result) ? success(value) : error();
+      // tampilkan hasil dengan alert
+      alert(final);
+      // load halaman
+      document.location.reload();
+    }
+  });
+  
+  function success(value) {
+    return `benar! jawaban yang benar adalah ${value}`;
+  }
+  
+  function error() {
+    return `salah! jawaban yang benar adalah ${result}`;
+  }
+  
+  
+}
+  </script>
+  <div class="wrapper">
+    <h1>Game Matematika Sederhana</h1>
+    <span class="number1"></span>
+    <span class="operator">+</span>
+    <span class="number2"></span>
+    <br><br>
+    <input type="number" class="input" placeholder="masukkan jawaban">
+    <button class="button">submit</button>
+  </div>
+  
+  <script src="script.js"></script>
+</body>
+</html>
